@@ -1,0 +1,8 @@
+meal,foods,portion_focus,protein_g,carbs_g,fat_g,calories_est
+Breakfast,Oats + Greek yogurt + banana + berries + peanut butter,"Slow-digesting carbs + protein",35,60,14,500
+Lunch,Chicken breast + rice + mixed vegetables + olive oil,"Lean protein + energy",45,70,12,650
+Snack,Whey protein + fruit + rice cakes,"Convenient post-workout recovery",25,30,2,250
+Dinner,Salmon or lean beef + potatoes + vegetables + avocado,"High-quality protein and carbs",40,60,20,650
+Preworkout,Banana + yogurt or rice cakes + whey,"Easy fuel before training",20,35,2,220
+Postworkout,Shake + fruit + granola or toast,"Recovery and glycogen replenishment",25,45,5,280
+

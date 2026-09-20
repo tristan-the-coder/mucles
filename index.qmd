@@ -1,0 +1,150 @@
+---
+title: "Muscle Gain Dashboard"
+format:
+  html:
+    toc: true
+    theme: cosmo
+---
+
+## Overview
+
+This dashboard summarizes a lean muscle-gain plan built around progressive overload, smart recovery, food quality, and hydration. The goal is to maximize muscle growth while limiting unnecessary fat gain.
+
+### Key targets
+
+- Goal: lean bulk with a 250–400 kcal surplus
+- Protein: 1.6–2.2 g/kg body weight
+- Sleep: 7–9 hours nightly
+- Water: 2.5–3.5 liters daily
+- Training: 4–6 focused sessions per week
+
+## Summary cards
+
+```{python}
+#| echo: false
+import pandas as pd
+
+macro = pd.read_csv('data/macros.csv')
+rest = pd.read_csv('data/rest_and_recovery.csv')
+water = pd.read_csv('data/water_plan.csv')
+
+macro_dict = dict(zip(macro['metric'], macro['target']))
+rest_dict = dict(zip(rest['metric'], rest['target']))
+water_dict = dict(zip(water['time_window'], water['water_target_ml']))
+
+summary = {
+    'Protein target': macro_dict.get('protein_g_per_kg', '1.6-2.2'),
+    'Sleep target': rest_dict.get('sleep_hours', '7-9'),
+    'Daily water': f"{water_dict.get('Daily_total', '2500-3500')} mL",
+    'Training days': rest_dict.get('training_days_per_week', '4-6')
+}
+```
+
+::: {.grid}
+::: {.g-col-3}
+<div class="card border-primary mb-3">
+  <div class="card-body">
+    <h5 class="card-title">Protein</h5>
+    <p class="card-text">1.6–2.2 g/kg</p>
+  </div>
+</div>
+:::
+
+::: {.g-col-3}
+<div class="card border-success mb-3">
+  <div class="card-body">
+    <h5 class="card-title">Sleep</h5>
+    <p class="card-text">7–9 hours</p>
+  </div>
+</div>
+:::
+
+::: {.g-col-3}
+<div class="card border-info mb-3">
+  <div class="card-body">
+    <h5 class="card-title">Water</h5>
+    <p class="card-text">2.5–3.5 L</p>
+  </div>
+</div>
+:::
+
+::: {.g-col-3}
+<div class="card border-warning mb-3">
+  <div class="card-body">
+    <h5 class="card-title">Training</h5>
+    <p class="card-text">4–6 days/week</p>
+  </div>
+</div>
+:::
+:::
+
+## Exercise priority
+
+The chart below highlights the most important lifts for muscle gain. Compound lifts with heavy progressive overload are prioritized first.
+
+```{python}
+#| echo: false
+import pandas as pd
+import plotly.express as px
+
+ex = pd.read_csv('data/exercises.csv')
+ex = ex.dropna(subset=['exercise_name', 'sets', 'reps'])
+# keep the first numeric value in reps for plotting simplicity
+ex['reps_num'] = ex['reps'].str.extract(r'(\d+)').astype(float)
+ex = ex.sort_values(['priority', 'sets'], ascending=[True, False])
+
+fig = px.bar(
+    ex,
+    x='exercise_name',
+    y='sets',
+    color='muscle_group',
+    title='Main exercises by training sets',
+    labels={'exercise_name': 'Exercise', 'sets': 'Sets per session'},
+    hover_data=['reps', 'frequency', 'muscle_group']
+)
+
+fig.update_layout(
+    xaxis={'categoryorder': 'total descending'},
+    template='plotly_white',
+    legend_title='Muscle group',
+    height=650,
+    margin=dict(l=30, r=30, t=60, b=150)
+)
+
+fig.show()
+```
+
+## Food and macro targets
+
+```{python}
+#| echo: false
+import pandas as pd
+
+macro = pd.read_csv('data/macros.csv')
+macro = macro[macro['metric'].str.contains('calories|protein|carbs|fat|water', case=False, na=False)]
+macro[['metric', 'target']]
+```
+
+| Metric | Target |
+|---|---|
+| Calories | 250–400 above maintenance |
+| Protein | 1.6–2.2 g/kg |
+| Carbs | 3–5 g/kg |
+| Fat | 0.6–1.0 g/kg |
+| Water | 2.5–3.5 L/day |
+
+## Recovery priorities
+
+- Sleep 7–9 hours every night.
+- Keep at least 1–2 rest days per week.
+- Allow 48–72 hours before training the same muscle group again.
+- Increase weights by roughly 5–10% as you adapt.
+
+## Data files
+
+- [data/exercises.csv](data/exercises.csv)
+- [data/rest_and_recovery.csv](data/rest_and_recovery.csv)
+- [data/food_plan.csv](data/food_plan.csv)
+- [data/macros.csv](data/macros.csv)
+- [data/water_plan.csv](data/water_plan.csv)
+
