@@ -1,9 +1,9 @@
 metric,target,notes
-sleep_hours,7-9,Prioritize consistent nightly sleep
-rest_days_per_week,1-2,Use lighter activity or full recovery days
-training_days_per_week,4-6,Keep total-body or upper/lower split
-between_workouts,48-72_hours,Allow a muscle group to recover before reloading it
-warmup_minutes,5-10,Do dynamic warm-up before lifting
-session_duration,60-90_minutes,Focus on quality reps and progressive overload
-weekly_progression,5-10%,Add a small increase in weight, sets, or reps over time
+sleep_hours,7-9,"Prioritize consistent nightly sleep"
+rest_days_per_week,1-2,"Use lighter activity or full recovery days"
+training_days_per_week,4-6,"Keep total-body or upper/lower split"
+between_workouts,48-72_hours,"Allow a muscle group to recover before reloading it"
+warmup_minutes,5-10,"Do dynamic warm-up before lifting"
+session_duration,60-90_minutes,"Focus on quality reps and progressive overload"
+weekly_progression,5-10%,"Add a small increase in weight, sets, or reps over time"
 
