@@ -1,13 +1,13 @@
-exercise_name,muscle_group,sets,reps,frequency,priority,notes
-"Barbell Back Squat",legs,4,6-8,2x per week,1,"Main lower-body strength lift"
-"Bench Press",chest,4,6-8,2x per week,1,"Core pressing movement"
-"Deadlift",posterior_chain,3,5-6,1x per week,1,"Heavy hinge lift for total-body mass"
-"Overhead Press",shoulders,3,6-8,2x per week,1,"Builds upper-body size and stability"
-"Chest-Supported Row",back,3,8-10,2x per week,1,"Strong mid-back builder"
-"Lat Pulldown",back,3,8-12,2x per week,1,"Vertical pull for width"
-"Incline Dumbbell Press",chest,3,8-12,1-2x per week,2,"Extra chest volume"
-"Romanian Deadlift",hamstrings_glutes,3,8-10,1x per week,2,"Posterior chain hypertrophy"
-"Walking Lunges",legs,3,10-12,1x per week,2,"Unilateral leg mass and balance"
-"Cable Curl",biceps,3,8-12,1-2x per week,2,"Arm isolation for growth"
-"Triceps Rope Pushdown",triceps,3,10-15,1-2x per week,2,"Adds arm volume"
+exercise_name,muscle_group,sets,reps,frequency,priority,notes,rest_seconds
+"Barbell Back Squat",legs,4,6-8,2x per week,1,"Main lower-body strength lift",180
+"Bench Press",chest,4,6-8,2x per week,1,"Core pressing movement",180
+"Deadlift",posterior_chain,3,5-6,1x per week,1,"Heavy hinge lift for total-body mass",180
+"Overhead Press",shoulders,3,6-8,2x per week,1,"Builds upper-body size and stability",150
+"Chest-Supported Row",back,3,8-10,2x per week,1,"Strong mid-back builder",120
+"Lat Pulldown",back,3,8-12,2x per week,1,"Vertical pull for width",90
+"Incline Dumbbell Press",chest,3,8-12,1-2x per week,2,"Extra chest volume",120
+"Romanian Deadlift",hamstrings_glutes,3,8-10,1x per week,2,"Posterior chain hypertrophy",120
+"Walking Lunges",legs,3,10-12,1x per week,2,"Unilateral leg mass and balance",60
+"Cable Curl",biceps,3,8-12,1-2x per week,2,"Arm isolation for growth",60
+"Triceps Rope Pushdown",triceps,3,10-15,1-2x per week,2,"Adds arm volume",60
 
