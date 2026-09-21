@@ -2,50 +2,43 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Muscle Gain Dashboard",
+    "title": "Powerlifting Performance Explorer",
     "section": "",
-    "text": "This dashboard summarizes a lean muscle-gain plan built around progressive overload, smart recovery, food quality, and hydration. The goal is to maximize muscle growth while limiting unnecessary fat gain.\n\n\n\nGoal: lean bulk with a 250–400 kcal surplus\nProtein: 1.6–2.2 g/kg body weight\nSleep: 7–9 hours nightly\nWater: 2.5–3.5 liters daily\nTraining: 4–6 focused sessions per week"
+    "text": "This site uses public powerlifting meet data instead of a static training plan. The dataset contains tens of thousands of lifter records and includes bodyweight, sex, age, and the best squat, bench, deadlift, and total for each athlete. That gives a real foundation for asking questions like: which bodyweight ranges support the strongest totals, and which lifts respond most strongly to size and bodyweight?\n\nPublic meet files do not consistently report height, so the most reliable body-size signal in the dataset is bodyweight and weight class. The analysis therefore focuses on bodyweight, age, and performance rather than a height-only model.\n\n\n\n                            \n                                            \n\n\n\n\n\nThe sample includes more than 50,000 lifter observations\nBodyweight is strongly associated with total lift output\nMen and women show different performance curves, but the trend remains: larger bodyweight ranges tend to support larger totals\nThis is a real observational data set, not a generic plan or static recommendation\n\nThe homepage is therefore built around actual meet data and the question: which bodyweight ranges pair best with strong squat, bench, and deadlift performance?"
   },
   {
-    "objectID": "index.html#overview",
-    "href": "index.html#overview",
-    "title": "Muscle Gain Dashboard",
+    "objectID": "index.html#home",
+    "href": "index.html#home",
+    "title": "Powerlifting Performance Explorer",
     "section": "",
-    "text": "This dashboard summarizes a lean muscle-gain plan built around progressive overload, smart recovery, food quality, and hydration. The goal is to maximize muscle growth while limiting unnecessary fat gain.\n\n\n\nGoal: lean bulk with a 250–400 kcal surplus\nProtein: 1.6–2.2 g/kg body weight\nSleep: 7–9 hours nightly\nWater: 2.5–3.5 liters daily\nTraining: 4–6 focused sessions per week"
+    "text": "This site uses public powerlifting meet data instead of a static training plan. The dataset contains tens of thousands of lifter records and includes bodyweight, sex, age, and the best squat, bench, deadlift, and total for each athlete. That gives a real foundation for asking questions like: which bodyweight ranges support the strongest totals, and which lifts respond most strongly to size and bodyweight?\n\nPublic meet files do not consistently report height, so the most reliable body-size signal in the dataset is bodyweight and weight class. The analysis therefore focuses on bodyweight, age, and performance rather than a height-only model.\n\n\n\n                            \n                                            \n\n\n\n\n\nThe sample includes more than 50,000 lifter observations\nBodyweight is strongly associated with total lift output\nMen and women show different performance curves, but the trend remains: larger bodyweight ranges tend to support larger totals\nThis is a real observational data set, not a generic plan or static recommendation\n\nThe homepage is therefore built around actual meet data and the question: which bodyweight ranges pair best with strong squat, bench, and deadlift performance?"
   },
   {
-    "objectID": "index.html#exercise-priority",
-    "href": "index.html#exercise-priority",
-    "title": "Muscle Gain Dashboard",
-    "section": "Exercise priority",
-    "text": "Exercise priority\nThe chart below highlights the most important lifts for muscle gain. Compound lifts with heavy progressive overload are prioritized first.\n\nSpecific exercise plan\n\nBarbell Back Squat: 4 sets of 6–8 reps, 3 minutes rest between sets\nBench Press: 4 sets of 6–8 reps, 3 minutes rest between sets\nDeadlift: 3 sets of 5–6 reps, 3 minutes rest between sets\nOverhead Press: 3 sets of 6–8 reps, 2.5 minutes rest between sets\nChest-Supported Row: 3 sets of 8–10 reps, 2 minutes rest between sets\nLat Pulldown: 3 sets of 8–12 reps, 1.5 minutes rest between sets\nCable Curl: 3 sets of 8–12 reps, 1 minute rest between sets\nTriceps Rope Pushdown: 3 sets of 10–15 reps, 1 minute rest between sets\n\n\n\nRest between sets\n\nHeavy compound lifts: 2–3 minutes\nModerate lifts: 1–2 minutes\nIsolation work: 60–90 seconds\nKeep rest consistent so you can maintain load and technique."
+    "objectID": "exploration.html",
+    "href": "exploration.html",
+    "title": "Exploration",
+    "section": "",
+    "text": "The most useful training question in the data is not simply “who lifts the most?” It is: how does bodyweight relate to max squat, bench, and deadlift performance, and which bodyweight ranges tend to pair best with each lift?\n\n\n\n\n                            \n                                            \n\n\nThe pattern is strong: total lift output rises with bodyweight in both sexes, but the relationship is clearly not one-size-fits-all. There are broad bands where lifters are unusually productive for their bodyweight, which suggests that weight class and individual structure matter.\n\n\n\n\n\n                            \n                                            \n\n\nThis view makes the training story more concrete. Squat and deadlift usually continue climbing as bodyweight rises, while bench performance has a slightly different curve because upper-body strength depends on a mix of body mass, leverages, and technique. The data suggests that bodyweight ranges matter much more than a single fixed “ideal” number."
   },
   {
-    "objectID": "index.html#food-and-macro-targets",
-    "href": "index.html#food-and-macro-targets",
-    "title": "Muscle Gain Dashboard",
-    "section": "Food and macro targets",
-    "text": "Food and macro targets\n\n\n\n\n\n\n\n\n\nMacro\nTarget\n\n\n\n\n0\nCalories\n250-400_above_maintenance\n\n\n1\nProtein Per Kg\n1.6-2.2\n\n\n2\nCarbs Per Kg\n3-5\n\n\n3\nFat Per Kg\n0.6-1.0\n\n\n4\nWater Liters\n2.5-3.5\n\n\n5\nProtein Daily Target G\n150-200\n\n\n7\nFat Daily Target G\n60-80\n\n\n\n\n\n\n\n\n\n\nMetric\nTarget\n\n\n\n\nCalories\n250–400 above maintenance\n\n\nProtein\n1.6–2.2 g/kg\n\n\nCarbs\n3–5 g/kg\n\n\nFat\n0.6–1.0 g/kg\n\n\nWater\n2.5–3.5 L/day"
+    "objectID": "exploration.html#exploration",
+    "href": "exploration.html#exploration",
+    "title": "Exploration",
+    "section": "",
+    "text": "The most useful training question in the data is not simply “who lifts the most?” It is: how does bodyweight relate to max squat, bench, and deadlift performance, and which bodyweight ranges tend to pair best with each lift?\n\n\n\n\n                            \n                                            \n\n\nThe pattern is strong: total lift output rises with bodyweight in both sexes, but the relationship is clearly not one-size-fits-all. There are broad bands where lifters are unusually productive for their bodyweight, which suggests that weight class and individual structure matter.\n\n\n\n\n\n                            \n                                            \n\n\nThis view makes the training story more concrete. Squat and deadlift usually continue climbing as bodyweight rises, while bench performance has a slightly different curve because upper-body strength depends on a mix of body mass, leverages, and technique. The data suggests that bodyweight ranges matter much more than a single fixed “ideal” number."
   },
   {
-    "objectID": "index.html#recovery-priorities",
-    "href": "index.html#recovery-priorities",
-    "title": "Muscle Gain Dashboard",
-    "section": "Recovery priorities",
-    "text": "Recovery priorities\n\nSleep 7–9 hours every night.\nKeep at least 1–2 rest days per week.\nAllow 48–72 hours before training the same muscle group again.\nIncrease weights by roughly 5–10% as you adapt.\nUse 90–180 seconds of rest between hard sets; shorten to 60–90 seconds for isolation work.\n\n\nSpecific foods to eat\n\nBreakfast: Oats + Greek yogurt + banana + berries + peanut butter\nLunch: Chicken breast + rice + mixed vegetables + olive oil\nSnack: Whey protein + apple + rice cakes\nDinner: Salmon or lean beef + potatoes + vegetables + avocado\nPre-workout: Banana + yogurt + rice cakes + whey\nPost-workout: Protein shake + fruit + granola or toast\n\nAim for a calorie surplus of about 250–400 kcal above maintenance and keep protein high each day."
+    "objectID": "story.html",
+    "href": "story.html",
+    "title": "Story",
+    "section": "",
+    "text": "The strongest story in the powerlifting data is that performance is not random. Across tens of thousands of lifters, total output changes in a clear pattern with bodyweight, and the best bodyweight bands are different for squat, bench, and deadlift. That makes this more than a static exercise list: it is a data story about how body size and strength interact in real competition.\n\n\n                            \n                                            \n\n\n\n\n\nThe dataset shows a clear rise in total output as bodyweight increases, especially through the middle-to-heavy weight classes.\nSquat and deadlift follow stronger bodyweight scaling than bench, which suggests leverage and torso angle matter as much as body mass.\nThe most important story is that training recommendations should be weight-class-aware rather than based on a single “ideal” bodyweight for everyone.\nPublic meet results do not consistently include height, so the most reliable size signal in this data is bodyweight and weight-class band.\n\nThis project is now grounded in actual competition results and tells a much more useful story than a generic plan: the best training target depends on bodyweight, lift type, and the structure of the lifter’s body and class."
   },
   {
-    "objectID": "index.html#muscle-specific-training-days",
-    "href": "index.html#muscle-specific-training-days",
-    "title": "Muscle Gain Dashboard",
-    "section": "Muscle-specific training days",
-    "text": "Muscle-specific training days\n\nLeg day\n\nCalories: about 2,800–3,200 kcal\nProtein: 180–220 g\nCarbs: 300–350 g\nFat: 60–80 g\nWater: 3–3.5 L\nSleep: 8–9 hours\n\nExercises: - Barbell Back Squat: 4 sets of 6–8 reps, 3 minutes rest - Romanian Deadlift: 3 sets of 8–10 reps, 2 minutes rest - Walking Lunges: 3 sets of 10–12 reps, 1 minute rest - Leg Press: 3 sets of 8–12 reps, 2 minutes rest - Calf Raises: 4 sets of 10–15 reps, 1 minute rest\n\n\nPush day\n\nCalories: about 2,700–3,100 kcal\nProtein: 170–210 g\nCarbs: 280–330 g\nFat: 55–75 g\nWater: 2.8–3.4 L\nSleep: 7.5–9 hours\n\nExercises: - Bench Press: 4 sets of 6–8 reps, 3 minutes rest - Overhead Press: 3 sets of 6–8 reps, 2.5 minutes rest - Incline Dumbbell Press: 3 sets of 8–12 reps, 2 minutes rest - Triceps Rope Pushdown: 3 sets of 10–15 reps, 1 minute rest - Dumbbell Lateral Raise: 3 sets of 12–15 reps, 1 minute rest\n\n\nPull day\n\nCalories: about 2,750–3,150 kcal\nProtein: 175–215 g\nCarbs: 290–340 g\nFat: 55–75 g\nWater: 2.8–3.4 L\nSleep: 7.5–9 hours\n\nExercises: - Chest-Supported Row: 3 sets of 8–10 reps, 2 minutes rest - Lat Pulldown: 3 sets of 8–12 reps, 1.5 minutes rest - Single-Arm Dumbbell Row: 3 sets of 8–12 reps, 1.5 minutes rest - Seated Cable Row: 3 sets of 10–12 reps, 1.5 minutes rest - Cable Curl: 3 sets of 8–12 reps, 1 minute rest\n\n\nArm day\n\nCalories: about 2,600–2,950 kcal\nProtein: 170–200 g\nCarbs: 260–310 g\nFat: 50–70 g\nWater: 2.7–3.3 L\nSleep: 7.5–9 hours\n\nExercises: - Close-Grip Bench Press: 3 sets of 6–8 reps, 2.5 minutes rest - Cable Curl: 3 sets of 8–12 reps, 1 minute rest - Skull Crusher: 3 sets of 8–10 reps, 1.5 minutes rest - Hammer Curl: 3 sets of 10–12 reps, 1 minute rest - Triceps Rope Pushdown: 3 sets of 10–15 reps, 1 minute rest\n\n\nRest day\n\nCalories: about 2,300–2,600 kcal\nProtein: 150–180 g\nCarbs: 220–280 g\nFat: 50–70 g\nWater: 2.5–3.0 L\nSleep: 8–9 hours\n\nRecovery plan: - Light walking or mobility work: 20–30 minutes - No heavy lifting - Focus on hydration, protein, and enough calories for recovery - Prioritize sleep and stress reduction\nGood foods for rest day: - Eggs + oatmeal + fruit - Turkey and rice bowl - Cottage cheese + berries - Salmon + potatoes + vegetables - Greek yogurt + nuts + fruit"
-  },
-  {
-    "objectID": "index.html#data-files",
-    "href": "index.html#data-files",
-    "title": "Muscle Gain Dashboard",
-    "section": "Data files",
-    "text": "Data files\n\ndata/exercises.csv\ndata/rest_and_recovery.csv\ndata/food_plan.csv\ndata/macros.csv\ndata/water_plan.csv"
+    "objectID": "story.html#story",
+    "href": "story.html#story",
+    "title": "Story",
+    "section": "",
+    "text": "The strongest story in the powerlifting data is that performance is not random. Across tens of thousands of lifters, total output changes in a clear pattern with bodyweight, and the best bodyweight bands are different for squat, bench, and deadlift. That makes this more than a static exercise list: it is a data story about how body size and strength interact in real competition.\n\n\n                            \n                                            \n\n\n\n\n\nThe dataset shows a clear rise in total output as bodyweight increases, especially through the middle-to-heavy weight classes.\nSquat and deadlift follow stronger bodyweight scaling than bench, which suggests leverage and torso angle matter as much as body mass.\nThe most important story is that training recommendations should be weight-class-aware rather than based on a single “ideal” bodyweight for everyone.\nPublic meet results do not consistently include height, so the most reliable size signal in this data is bodyweight and weight-class band.\n\nThis project is now grounded in actual competition results and tells a much more useful story than a generic plan: the best training target depends on bodyweight, lift type, and the structure of the lifter’s body and class."
   }
 ]
