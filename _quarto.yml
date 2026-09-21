@@ -3,11 +3,15 @@ project:
   output-dir: _site
 
 website:
-  title: "Muscle Gain Dashboard"
+  title: "Global Development Explorer"
   navbar:
     left:
       - href: index.qmd
         text: Home
+      - href: exploration.qmd
+        text: Exploration
+      - href: story.qmd
+        text: Story
 
 format:
   html:

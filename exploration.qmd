@@ -1,0 +1,96 @@
+---
+title: "Exploration"
+format:
+  html:
+    toc: true
+    theme: cosmo
+---
+
+## Exploration
+
+This page treats the data as a set of observations to be questioned and visualized rather than as a fixed narrative. We can look for patterns, compare groups, and test whether development trends appear consistently across countries and time.
+
+### Question 1: Does GDP per capita line up with longer life expectancy?
+
+```{python}
+#| echo: false
+#| message: false
+import pandas as pd
+import plotly.express as px
+
+df = pd.read_csv('data/gapminderDataFiveYear.csv')
+df['year'] = df['year'].astype(int)
+
+fig = px.scatter(
+    df,
+    x='gdpPercap',
+    y='lifeExp',
+    size='pop',
+    color='continent',
+    hover_name='country',
+    facet_col='continent',
+    range_x=[0, 60000],
+    range_y=[20, 90],
+    title='Life expectancy vs. GDP per capita by continent',
+    labels={
+        'gdpPercap': 'GDP per capita (USD)',
+        'lifeExp': 'Life expectancy (years)',
+        'pop': 'Population',
+        'continent': 'Continent'
+    }
+)
+
+fig.update_layout(
+    template='plotly_white',
+    width=1200,
+    height=500,
+    legend_title='Continent',
+    title_x=0.5
+)
+
+fig.show()
+```
+
+The general pattern is clear: as GDP per capita rises, life expectancy tends to rise as well. The relationship is not perfectly linear, but the overall direction is consistent across continents.
+
+### Question 2: Which continents saw the strongest health gains over time?
+
+```{python}
+#| echo: false
+#| message: false
+import pandas as pd
+import plotly.express as px
+
+df = pd.read_csv('data/gapminderDataFiveYear.csv')
+continent_trends = (
+    df.groupby(['continent', 'year'], as_index=False)['lifeExp']
+      .mean()
+      .sort_values(['continent', 'year'])
+)
+
+fig = px.line(
+    continent_trends,
+    x='year',
+    y='lifeExp',
+    color='continent',
+    markers=True,
+    title='Average life expectancy by continent over time',
+    labels={
+        'year': 'Year',
+        'lifeExp': 'Average life expectancy (years)',
+        'continent': 'Continent'
+    }
+)
+
+fig.update_layout(
+    template='plotly_white',
+    width=1100,
+    height=500,
+    legend_title='Continent',
+    title_x=0.5
+)
+
+fig.show()
+```
+
+This view highlights broad structural gains over time. Average life expectancy rises steadily for every continent, but not at the same rate, which suggests differences in development, health systems, and social conditions.

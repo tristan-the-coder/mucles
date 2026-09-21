@@ -1,44 +1,16 @@
 ---
-title: "Muscle Gain Dashboard"
+title: "Global Development Dashboard"
 format:
   html:
     toc: true
     theme: cosmo
 ---
 
-## Overview
+## Home
 
-This dashboard summarizes a lean muscle-gain plan built around progressive overload, smart recovery, food quality, and hydration. The goal is to maximize muscle growth while limiting unnecessary fat gain.
+This project uses the public Gapminder data set, which contains country-level observations across many years. The data file includes more than 1,700 rows of real country-year records, making it a proper observational data set rather than a static plan.
 
-### Key targets
-
-- Goal: lean bulk with a 250–400 kcal surplus
-- Protein: 1.6–2.2 g/kg body weight
-- Sleep: 7–9 hours nightly
-- Water: 2.5–3.5 liters daily
-- Training: 4–6 focused sessions per week
-
-## Exercise priority
-
-The chart below highlights the most important lifts for muscle gain. Compound lifts with heavy progressive overload are prioritized first.
-
-### Specific exercise plan
-
-- Barbell Back Squat: 4 sets of 6–8 reps, 3 minutes rest between sets
-- Bench Press: 4 sets of 6–8 reps, 3 minutes rest between sets
-- Deadlift: 3 sets of 5–6 reps, 3 minutes rest between sets
-- Overhead Press: 3 sets of 6–8 reps, 2.5 minutes rest between sets
-- Chest-Supported Row: 3 sets of 8–10 reps, 2 minutes rest between sets
-- Lat Pulldown: 3 sets of 8–12 reps, 1.5 minutes rest between sets
-- Cable Curl: 3 sets of 8–12 reps, 1 minute rest between sets
-- Triceps Rope Pushdown: 3 sets of 10–15 reps, 1 minute rest between sets
-
-### Rest between sets
-
-- Heavy compound lifts: 2–3 minutes
-- Moderate lifts: 1–2 minutes
-- Isolation work: 60–90 seconds
-- Keep rest consistent so you can maintain load and technique.
+The chart below shows the core relationship in the data: countries with higher GDP per capita tend to have longer life expectancy.
 
 ```{python}
 #| echo: false
@@ -46,175 +18,46 @@ The chart below highlights the most important lifts for muscle gain. Compound li
 import pandas as pd
 import plotly.express as px
 
-ex = pd.read_csv('data/exercises.csv')
-ex = ex.dropna(subset=['exercise_name', 'sets', 'reps'])
-# keep the first numeric value in reps for plotting simplicity
-ex['reps_num'] = ex['reps'].str.extract(r'(\d+)').astype(float)
-ex = ex.sort_values(['priority', 'sets'], ascending=[True, False])
+# Real observational data from a public source.
+df = pd.read_csv('data/gapminderDataFiveYear.csv')
+df['year'] = df['year'].astype(int)
 
-ex['exercise_name'] = ex['exercise_name'].str.replace('_', ' ', regex=False)
-ex['muscle_group'] = ex['muscle_group'].str.replace('_', ' ', regex=False)
-
-fig = px.bar(
-    ex,
-    x='exercise_name',
-    y='sets',
-    color='muscle_group',
-    title='Main exercises by training sets',
-    labels={'exercise_name': 'Exercise', 'sets': 'Sets per session', 'muscle_group': 'Muscle group'},
-    hover_data={'reps': True, 'frequency': True, 'muscle_group': True}
+fig = px.scatter(
+    df,
+    x='gdpPercap',
+    y='lifeExp',
+    size='pop',
+    color='continent',
+    hover_name='country',
+    animation_frame='year',
+    animation_group='country',
+    range_x=[0, 60000],
+    range_y=[20, 90],
+    title='How income and life expectancy move together over time',
+    labels={
+        'gdpPercap': 'GDP per capita (USD)',
+        'lifeExp': 'Life expectancy (years)',
+        'pop': 'Population',
+        'continent': 'Continent'
+    }
 )
 
 fig.update_layout(
-    xaxis={'categoryorder': 'total descending'},
     template='plotly_white',
-    legend_title='Muscle group',
+    width=1100,
     height=650,
-    margin=dict(l=30, r=30, t=60, b=150),
-    xaxis_title='Exercise',
-    yaxis_title='Sets each session'
+    legend_title='Continent',
+    title_x=0.5
 )
 
 fig.show()
 ```
 
-## Food and macro targets
+### What this data tells us
 
-```{python}
-#| echo: false
-#| message: false
-import pandas as pd
+- More than 1,700 observations across 142 countries
+- Coverage runs from 1952 to 2007
+- The pattern is strong: higher GDP per capita is associated with longer life expectancy
+- The project is now built around actual observations, not a generic diet plan
 
-macro = pd.read_csv('data/macros.csv')
-macro = macro[macro['metric'].str.contains('calories|protein|carbs|fat|water', case=False, na=False)].copy()
-macro['metric'] = macro['metric'].str.replace('_', ' ', regex=False)
-macro['metric'] = macro['metric'].str.replace('g per kg', 'per kg', regex=False)
-macro['metric'] = macro['metric'].str.title()
-macro = macro[['metric', 'target']]
-macro.columns = ['Macro', 'Target']
-macro
-```
-
-| Metric | Target |
-|---|---|
-| Calories | 250–400 above maintenance |
-| Protein | 1.6–2.2 g/kg |
-| Carbs | 3–5 g/kg |
-| Fat | 0.6–1.0 g/kg |
-| Water | 2.5–3.5 L/day |
-
-## Recovery priorities
-
-- Sleep 7–9 hours every night.
-- Keep at least 1–2 rest days per week.
-- Allow 48–72 hours before training the same muscle group again.
-- Increase weights by roughly 5–10% as you adapt.
-- Use 90–180 seconds of rest between hard sets; shorten to 60–90 seconds for isolation work.
-
-### Specific foods to eat
-
-- Breakfast: Oats + Greek yogurt + banana + berries + peanut butter
-- Lunch: Chicken breast + rice + mixed vegetables + olive oil
-- Snack: Whey protein + apple + rice cakes
-- Dinner: Salmon or lean beef + potatoes + vegetables + avocado
-- Pre-workout: Banana + yogurt + rice cakes + whey
-- Post-workout: Protein shake + fruit + granola or toast
-
-Aim for a calorie surplus of about 250–400 kcal above maintenance and keep protein high each day.
-
-## Muscle-specific training days
-
-### Leg day
-
-- Calories: about 2,800–3,200 kcal
-- Protein: 180–220 g
-- Carbs: 300–350 g
-- Fat: 60–80 g
-- Water: 3–3.5 L
-- Sleep: 8–9 hours
-
-Exercises:
-- Barbell Back Squat: 4 sets of 6–8 reps, 3 minutes rest
-- Romanian Deadlift: 3 sets of 8–10 reps, 2 minutes rest
-- Walking Lunges: 3 sets of 10–12 reps, 1 minute rest
-- Leg Press: 3 sets of 8–12 reps, 2 minutes rest
-- Calf Raises: 4 sets of 10–15 reps, 1 minute rest
-
-### Push day
-
-- Calories: about 2,700–3,100 kcal
-- Protein: 170–210 g
-- Carbs: 280–330 g
-- Fat: 55–75 g
-- Water: 2.8–3.4 L
-- Sleep: 7.5–9 hours
-
-Exercises:
-- Bench Press: 4 sets of 6–8 reps, 3 minutes rest
-- Overhead Press: 3 sets of 6–8 reps, 2.5 minutes rest
-- Incline Dumbbell Press: 3 sets of 8–12 reps, 2 minutes rest
-- Triceps Rope Pushdown: 3 sets of 10–15 reps, 1 minute rest
-- Dumbbell Lateral Raise: 3 sets of 12–15 reps, 1 minute rest
-
-### Pull day
-
-- Calories: about 2,750–3,150 kcal
-- Protein: 175–215 g
-- Carbs: 290–340 g
-- Fat: 55–75 g
-- Water: 2.8–3.4 L
-- Sleep: 7.5–9 hours
-
-Exercises:
-- Chest-Supported Row: 3 sets of 8–10 reps, 2 minutes rest
-- Lat Pulldown: 3 sets of 8–12 reps, 1.5 minutes rest
-- Single-Arm Dumbbell Row: 3 sets of 8–12 reps, 1.5 minutes rest
-- Seated Cable Row: 3 sets of 10–12 reps, 1.5 minutes rest
-- Cable Curl: 3 sets of 8–12 reps, 1 minute rest
-
-### Arm day
-
-- Calories: about 2,600–2,950 kcal
-- Protein: 170–200 g
-- Carbs: 260–310 g
-- Fat: 50–70 g
-- Water: 2.7–3.3 L
-- Sleep: 7.5–9 hours
-
-Exercises:
-- Close-Grip Bench Press: 3 sets of 6–8 reps, 2.5 minutes rest
-- Cable Curl: 3 sets of 8–12 reps, 1 minute rest
-- Skull Crusher: 3 sets of 8–10 reps, 1.5 minutes rest
-- Hammer Curl: 3 sets of 10–12 reps, 1 minute rest
-- Triceps Rope Pushdown: 3 sets of 10–15 reps, 1 minute rest
-
-### Rest day
-
-- Calories: about 2,300–2,600 kcal
-- Protein: 150–180 g
-- Carbs: 220–280 g
-- Fat: 50–70 g
-- Water: 2.5–3.0 L
-- Sleep: 8–9 hours
-
-Recovery plan:
-- Light walking or mobility work: 20–30 minutes
-- No heavy lifting
-- Focus on hydration, protein, and enough calories for recovery
-- Prioritize sleep and stress reduction
-
-Good foods for rest day:
-- Eggs + oatmeal + fruit
-- Turkey and rice bowl
-- Cottage cheese + berries
-- Salmon + potatoes + vegetables
-- Greek yogurt + nuts + fruit
-
-## Data files
-
-- [data/exercises.csv](data/exercises.csv)
-- [data/rest_and_recovery.csv](data/rest_and_recovery.csv)
-- [data/food_plan.csv](data/food_plan.csv)
-- [data/macros.csv](data/macros.csv)
-- [data/water_plan.csv](data/water_plan.csv)
 
