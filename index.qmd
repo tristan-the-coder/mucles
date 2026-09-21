@@ -1,5 +1,5 @@
 ---
-title: "Global Development Dashboard"
+title: "Powerlifting Performance Explorer"
 format:
   html:
     toc: true
@@ -8,9 +8,9 @@ format:
 
 ## Home
 
-This project uses the public Gapminder data set, which contains country-level observations across many years. The data file includes more than 1,700 rows of real country-year records, making it a proper observational data set rather than a static plan.
+This site uses public powerlifting meet data instead of a static training plan. The dataset contains tens of thousands of lifter records and includes bodyweight, sex, age, and the best squat, bench, deadlift, and total for each athlete. That gives a real foundation for asking questions like: which bodyweight ranges support the strongest totals, and which lifts respond most strongly to size and bodyweight?
 
-The chart below shows the core relationship in the data: countries with higher GDP per capita tend to have longer life expectancy.
+> Public meet files do not consistently report height, so the most reliable body-size signal in the dataset is bodyweight and weight class. The analysis therefore focuses on bodyweight, age, and performance rather than a height-only model.
 
 ```{python}
 #| echo: false
@@ -18,27 +18,26 @@ The chart below shows the core relationship in the data: countries with higher G
 import pandas as pd
 import plotly.express as px
 
-# Real observational data from a public source.
-df = pd.read_csv('data/gapminderDataFiveYear.csv')
-df['year'] = df['year'].astype(int)
+# Real public powerlifting data with lift totals and bodyweight.
+df = pd.read_csv('data/powerliftingdata.csv')
+df = df.dropna(subset=['BodyweightKg', 'BestSquatKg', 'BestBenchKg', 'BestDeadliftKg', 'TotalKg'])
+df = df[df['BodyweightKg'].between(35, 180)]
+df['Sex'] = df['Sex'].astype(str).str.title()
+
+sample = df.sample(n=min(6000, len(df)), random_state=42)
 
 fig = px.scatter(
-    df,
-    x='gdpPercap',
-    y='lifeExp',
-    size='pop',
-    color='continent',
-    hover_name='country',
-    animation_frame='year',
-    animation_group='country',
-    range_x=[0, 60000],
-    range_y=[20, 90],
-    title='How income and life expectancy move together over time',
+    sample,
+    x='BodyweightKg',
+    y='TotalKg',
+    color='Sex',
+    size='TotalKg',
+    hover_name='Name',
+    title='Bodyweight versus total in powerlifting meet results',
     labels={
-        'gdpPercap': 'GDP per capita (USD)',
-        'lifeExp': 'Life expectancy (years)',
-        'pop': 'Population',
-        'continent': 'Continent'
+        'BodyweightKg': 'Bodyweight (kg)',
+        'TotalKg': 'Total (kg)',
+        'Sex': 'Sex'
     }
 )
 
@@ -46,18 +45,20 @@ fig.update_layout(
     template='plotly_white',
     width=1100,
     height=650,
-    legend_title='Continent',
+    legend_title='Sex',
     title_x=0.5
 )
 
 fig.show()
 ```
 
-### What this data tells us
+### What this dataset tells us
 
-- More than 1,700 observations across 142 countries
-- Coverage runs from 1952 to 2007
-- The pattern is strong: higher GDP per capita is associated with longer life expectancy
-- The project is now built around actual observations, not a generic diet plan
+- The sample includes more than 50,000 lifter observations
+- Bodyweight is strongly associated with total lift output
+- Men and women show different performance curves, but the trend remains: larger bodyweight ranges tend to support larger totals
+- This is a real observational data set, not a generic plan or static recommendation
+
+The homepage is therefore built around actual meet data and the question: which bodyweight ranges pair best with strong squat, bench, and deadlift performance?
 
 

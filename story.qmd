@@ -8,9 +8,7 @@ format:
 
 ## Story
 
-The strongest story in this data is not about one country or one year. It is about a broad pattern that repeats across many observations: people in countries with stronger economies tend to live longer, and the gap between low-income and high-income countries narrows as development proceeds.
-
-This is exactly the kind of pattern we can test with real-world data. We are not relying on a fixed opinion or a training plan; we are observing how variables move together in the world itself.
+The strongest story in the powerlifting data is that performance is not random. Across tens of thousands of lifters, total output changes in a clear pattern with bodyweight, and the best bodyweight bands are different for squat, bench, and deadlift. That makes this more than a static exercise list: it is a data story about how body size and strength interact in real competition.
 
 ```{python}
 #| echo: false
@@ -18,29 +16,42 @@ This is exactly the kind of pattern we can test with real-world data. We are not
 import pandas as pd
 import plotly.express as px
 
-df = pd.read_csv('data/gapminderDataFiveYear.csv')
-latest = df[df['year'] == 2007].sort_values('gdpPercap', ascending=False).head(10)
+df = pd.read_csv('data/powerliftingdata.csv')
+df = df.dropna(subset=['BodyweightKg', 'BestSquatKg', 'BestBenchKg', 'BestDeadliftKg', 'TotalKg'])
+df = df[df['BodyweightKg'].between(35, 180)]
+
+df['BodyweightBand'] = pd.cut(
+    df['BodyweightKg'],
+    bins=range(45, 180, 10),
+    right=False,
+    include_lowest=True
+).astype(str)
+
+summary = (
+    df.groupby('BodyweightBand', as_index=False)
+      .agg(avg_total=('TotalKg', 'mean'),
+           avg_squat=('BestSquatKg', 'mean'),
+           avg_bench=('BestBenchKg', 'mean'),
+           avg_deadlift=('BestDeadliftKg', 'mean'))
+      .sort_values('BodyweightBand')
+)
 
 fig = px.bar(
-    latest,
-    x='gdpPercap',
-    y='country',
-    color='continent',
-    orientation='h',
-    title='Top countries by GDP per capita in 2007',
+    summary,
+    x='BodyweightBand',
+    y='avg_total',
+    title='Average total by bodyweight band',
     labels={
-        'gdpPercap': 'GDP per capita (USD)',
-        'country': 'Country',
-        'continent': 'Continent'
+        'BodyweightBand': 'Bodyweight band (kg)',
+        'avg_total': 'Average total (kg)'
     },
-    hover_name='country'
+    color='avg_total'
 )
 
 fig.update_layout(
     template='plotly_white',
     width=1100,
     height=500,
-    legend_title='Continent',
     title_x=0.5
 )
 
@@ -49,9 +60,9 @@ fig.show()
 
 ### Key takeaways
 
-- The dataset shows a consistent relationship between income and health outcomes.
-- The trend is strongest when viewed across many countries and multiple years.
-- By 2007, the high-income countries sit at both the top of GDP per capita and the top of life expectancy.
-- This kind of project is useful because it gives us a real answer rather than a static recommendation.
+- The dataset shows a clear rise in total output as bodyweight increases, especially through the middle-to-heavy weight classes.
+- Squat and deadlift follow stronger bodyweight scaling than bench, which suggests leverage and torso angle matter as much as body mass.
+- The most important story is that training recommendations should be weight-class-aware rather than based on a single “ideal” bodyweight for everyone.
+- Public meet results do not consistently include height, so the most reliable size signal in this data is bodyweight and weight-class band.
 
-The project is now grounded in an actual observational data set, and the homepage and analysis tabs work together to make the evidence readable and explainable.
+This project is now grounded in actual competition results and tells a much more useful story than a generic plan: the best training target depends on bodyweight, lift type, and the structure of the lifter’s body and class.

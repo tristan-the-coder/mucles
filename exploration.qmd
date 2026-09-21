@@ -8,9 +8,9 @@ format:
 
 ## Exploration
 
-This page treats the data as a set of observations to be questioned and visualized rather than as a fixed narrative. We can look for patterns, compare groups, and test whether development trends appear consistently across countries and time.
+The most useful training question in the data is not simply “who lifts the most?” It is: how does bodyweight relate to max squat, bench, and deadlift performance, and which bodyweight ranges tend to pair best with each lift?
 
-### Question 1: Does GDP per capita line up with longer life expectancy?
+### Question 1: How does bodyweight relate to total performance?
 
 ```{python}
 #| echo: false
@@ -18,25 +18,25 @@ This page treats the data as a set of observations to be questioned and visualiz
 import pandas as pd
 import plotly.express as px
 
-df = pd.read_csv('data/gapminderDataFiveYear.csv')
-df['year'] = df['year'].astype(int)
+df = pd.read_csv('data/powerliftingdata.csv')
+df = df.dropna(subset=['BodyweightKg', 'BestSquatKg', 'BestBenchKg', 'BestDeadliftKg', 'TotalKg'])
+df = df[df['BodyweightKg'].between(35, 180)]
+df['Sex'] = df['Sex'].astype(str).str.title()
+
+sample = df.sample(n=min(8000, len(df)), random_state=42)
 
 fig = px.scatter(
-    df,
-    x='gdpPercap',
-    y='lifeExp',
-    size='pop',
-    color='continent',
-    hover_name='country',
-    facet_col='continent',
-    range_x=[0, 60000],
-    range_y=[20, 90],
-    title='Life expectancy vs. GDP per capita by continent',
+    sample,
+    x='BodyweightKg',
+    y='TotalKg',
+    color='Sex',
+    hover_name='Name',
+    facet_col='Sex',
+    title='Total lift output versus bodyweight by sex',
     labels={
-        'gdpPercap': 'GDP per capita (USD)',
-        'lifeExp': 'Life expectancy (years)',
-        'pop': 'Population',
-        'continent': 'Continent'
+        'BodyweightKg': 'Bodyweight (kg)',
+        'TotalKg': 'Total (kg)',
+        'Sex': 'Sex'
     }
 )
 
@@ -44,16 +44,16 @@ fig.update_layout(
     template='plotly_white',
     width=1200,
     height=500,
-    legend_title='Continent',
+    legend_title='Sex',
     title_x=0.5
 )
 
 fig.show()
 ```
 
-The general pattern is clear: as GDP per capita rises, life expectancy tends to rise as well. The relationship is not perfectly linear, but the overall direction is consistent across continents.
+The pattern is strong: total lift output rises with bodyweight in both sexes, but the relationship is clearly not one-size-fits-all. There are broad bands where lifters are unusually productive for their bodyweight, which suggests that weight class and individual structure matter.
 
-### Question 2: Which continents saw the strongest health gains over time?
+### Question 2: Which bodyweight bands produce the strongest lift averages?
 
 ```{python}
 #| echo: false
@@ -61,24 +61,44 @@ The general pattern is clear: as GDP per capita rises, life expectancy tends to 
 import pandas as pd
 import plotly.express as px
 
-df = pd.read_csv('data/gapminderDataFiveYear.csv')
-continent_trends = (
-    df.groupby(['continent', 'year'], as_index=False)['lifeExp']
-      .mean()
-      .sort_values(['continent', 'year'])
+df = pd.read_csv('data/powerliftingdata.csv')
+df = df.dropna(subset=['BodyweightKg', 'BestSquatKg', 'BestBenchKg', 'BestDeadliftKg'])
+df = df[df['BodyweightKg'].between(35, 180)]
+
+df['BodyweightBand'] = pd.cut(
+    df['BodyweightKg'],
+    bins=range(45, 180, 10),
+    right=False,
+    include_lowest=True
+).astype(str)
+
+summary = (
+    df.groupby('BodyweightBand', as_index=False)
+      .agg(avg_squat=('BestSquatKg', 'mean'),
+           avg_bench=('BestBenchKg', 'mean'),
+           avg_deadlift=('BestDeadliftKg', 'mean'))
 )
 
+summary = summary.sort_values('BodyweightBand')
+summary_long = summary.melt(
+    id_vars='BodyweightBand',
+    value_vars=['avg_squat', 'avg_bench', 'avg_deadlift'],
+    var_name='Lift',
+    value_name='Kg'
+)
+summary_long['Lift'] = summary_long['Lift'].str.replace('avg_', '', regex=False).str.title()
+
 fig = px.line(
-    continent_trends,
-    x='year',
-    y='lifeExp',
-    color='continent',
+    summary_long,
+    x='BodyweightBand',
+    y='Kg',
+    color='Lift',
     markers=True,
-    title='Average life expectancy by continent over time',
+    title='Average squat, bench, and deadlift by bodyweight band',
     labels={
-        'year': 'Year',
-        'lifeExp': 'Average life expectancy (years)',
-        'continent': 'Continent'
+        'BodyweightBand': 'Bodyweight band (kg)',
+        'Kg': 'Average lift (kg)',
+        'Lift': 'Lift'
     }
 )
 
@@ -86,11 +106,11 @@ fig.update_layout(
     template='plotly_white',
     width=1100,
     height=500,
-    legend_title='Continent',
+    legend_title='Lift',
     title_x=0.5
 )
 
 fig.show()
 ```
 
-This view highlights broad structural gains over time. Average life expectancy rises steadily for every continent, but not at the same rate, which suggests differences in development, health systems, and social conditions.
+This view makes the training story more concrete. Squat and deadlift usually continue climbing as bodyweight rises, while bench performance has a slightly different curve because upper-body strength depends on a mix of body mass, leverages, and technique. The data suggests that bodyweight ranges matter much more than a single fixed “ideal” number.

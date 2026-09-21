@@ -3,7 +3,7 @@ project:
   output-dir: _site
 
 website:
-  title: "Global Development Explorer"
+  title: "Powerlifting Performance Explorer"
   navbar:
     left:
       - href: index.qmd
